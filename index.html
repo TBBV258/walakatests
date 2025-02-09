@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EnterpriseERP - Business Management Suite</title>
+  <title>WALAKA - Soluções Empresariais</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Modern Color Scheme */
+    /* Esquema de Cores Corporativo Moderno */
     :root {
       --primary: #2563eb;
-      --secondary: #1e40af;
-      --accent: #f59e0b;
-      --dark: #1f2937;
-      --light: #f8fafc;
+      --secondary: #1d4ed8;
+      --accent: #10b981;
+      --dark: #111827;
+      --light: #f9fafb;
+      --gray: #6b7280;
     }
 
-    /* Base Styles */
+    /* Estilos Base */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -23,16 +25,17 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
       color: var(--dark);
       background: var(--light);
     }
 
-    /* Header */
+    /* Cabeçalho */
     .landing-header {
-      background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.05);
       position: fixed;
       width: 100%;
       top: 0;
@@ -40,23 +43,25 @@
     }
 
     .navbar {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 1rem 2rem;
+      padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      font-weight: 700;
-      font-size: 1.5rem;
+      font-weight: 800;
+      font-size: 2rem;
       color: var(--primary);
+      letter-spacing: -1px;
+      text-shadow: 0 2px 4px rgba(37,99,235,0.1);
     }
 
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 3.5rem;
       list-style: none;
     }
 
@@ -64,153 +69,243 @@
       text-decoration: none;
       color: var(--dark);
       font-weight: 500;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 1.05rem;
     }
 
-    .nav-links a:hover {
-      color: var(--primary);
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2.5px;
+      bottom: -4px;
+      left: 0;
+      background: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover:after {
+      width: 100%;
     }
 
     .nav-buttons .btn {
-      padding: 0.75rem 1.5rem;
+      padding: 0.9rem 2rem;
       border-radius: 8px;
-      font-weight: 500;
-      transition: transform 0.2s ease;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-size: 1.05rem;
     }
 
     .btn-trial {
       background: var(--primary);
       color: white;
       border: none;
+      box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+    }
+
+    .btn-trial:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(37,99,235,0.3);
     }
 
     .btn-login {
       background: transparent;
       color: var(--primary);
       border: 2px solid var(--primary);
-      margin-left: 1rem;
+      margin-left: 1.2rem;
     }
 
-    /* Hero Section */
+    .btn-login:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Seção Hero */
     .hero {
-      padding: 8rem 2rem 4rem;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 12rem 2rem 8rem;
+      background: linear-gradient(135deg, #f9fafb 0%, #e0f2fe 100%);
       text-align: center;
     }
 
     .hero-content {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 1.8rem;
       color: var(--dark);
+      letter-spacing: -1.5px;
+      line-height: 1.2;
+      background: linear-gradient(to right, var(--dark), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 1.25rem;
-      color: #64748b;
-      margin-bottom: 2rem;
+      font-size: 1.4rem;
+      color: var(--gray);
+      margin-bottom: 3rem;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
     }
 
-    /* Features Grid */
+    /* Grade de Recursos */
     .modules-container {
-      max-width: 1200px;
-      margin: 4rem auto;
+      max-width: 1400px;
+      margin: 7rem auto;
       padding: 0 2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3rem;
     }
 
     .module {
       background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .module::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(37,99,235,0.05) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
     .module:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+    }
+
+    .module:hover::before {
+      opacity: 1;
     }
 
     .module-icon {
-      font-size: 2rem;
+      font-size: 3rem;
       color: var(--primary);
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     .module h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
       color: var(--dark);
+      font-weight: 700;
     }
 
     .module-price {
-      font-size: 1.75rem;
-      font-weight: 700;
+      font-size: 2.2rem;
+      font-weight: 800;
       color: var(--primary);
-      margin: 1rem 0;
+      margin: 1.8rem 0;
+    }
+
+    .module-price span {
+      font-size: 1.2rem;
+      color: var(--gray);
+      font-weight: 500;
     }
 
     .module-features {
       list-style: none;
-      margin: 1.5rem 0;
+      margin: 2.5rem 0;
     }
 
     .module-features li {
       display: flex;
       align-items: center;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1.2rem;
+      font-size: 1.15rem;
+      color: var(--gray);
     }
 
     .module-features i {
-      color: var(--primary);
-      margin-right: 0.5rem;
+      color: var(--accent);
+      margin-right: 1rem;
+      font-size: 1.3rem;
     }
 
-    /* Trust Badges */
+    /* Selos de Confiança */
     .trust-section {
       text-align: center;
-      padding: 4rem 2rem;
+      padding: 6rem 2rem;
       background: white;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .trust-section h3 {
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 3rem;
     }
 
     .trust-logos {
       display: flex;
       justify-content: center;
-      gap: 3rem;
+      gap: 5rem;
       flex-wrap: wrap;
-      margin-top: 2rem;
+      margin-top: 3.5rem;
     }
 
     .trust-logos img {
-      height: 40px;
+      height: 50px;
       opacity: 0.7;
+      transition: all 0.3s ease;
+      filter: grayscale(100%);
     }
 
-    /* Footer */
+    .trust-logos img:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    /* Rodapé */
     .landing-footer {
       background: var(--dark);
       color: white;
-      padding: 4rem 2rem;
+      padding: 5rem 2rem;
     }
 
     .footer-content {
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
     }
 
     .footer-section h4 {
       margin-bottom: 1.5rem;
       color: white;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .footer-section p {
+      color: #9ca3af;
+      line-height: 1.8;
     }
 
     .footer-links {
@@ -218,28 +313,40 @@
     }
 
     .footer-links a {
-      color: #cbd5e1;
+      color: #9ca3af;
       text-decoration: none;
       display: block;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.8rem;
+      transition: all 0.3s ease;
+      font-size: 1.05rem;
     }
 
     .footer-links a:hover {
       color: white;
+      transform: translateX(5px);
     }
 
-    /* Responsive Design */
+    /* Design Responsivo */
     @media (max-width: 768px) {
       .nav-links {
         display: none;
       }
 
       .hero h1 {
-        font-size: 2rem;
+        font-size: 3rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
       }
 
       .modules-container {
         grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
       }
     }
   </style>
@@ -247,25 +354,25 @@
 <body>
   <header class="landing-header">
     <nav class="navbar">
-      <div class="logo">EnterpriseERP</div>
+      <div class="logo">WALAKA</div>
       <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#resources">Resources</a></li>
+        <li><a href="#features">Soluções</a></li>
+        <li><a href="#pricing">Preços</a></li>
+        <li><a href="#resources">Recursos</a></li>
       </ul>
       <div class="nav-buttons">
-        <button class="btn btn-trial">Start Free Trial</button>
-        <a href="login.html"><button class="btn btn-login">Login</button></a>
+        <a href="dashboard.html"><button class="btn btn-trial">Começar</button></a>
+        <a href="login.html"><button class="btn btn-login">Entrar</button></a>
       </div>
     </nav>
   </header>
 
   <section class="hero">
     <div class="hero-content">
-      <h1>Transform Your Business Management</h1>
-      <p>All-in-one platform for modern enterprises. Streamline operations, finances, and customer relationships in one place.</p>
+      <h1>Impulsione o Crescimento da Sua Empresa</h1>
+      <p>Plataforma unificada de gestão empresarial projetada para empresas modernas. Otimize operações, gerencie finanças e melhore relacionamentos com clientes.</p>
       <div class="cta-buttons">
-        <button class="btn btn-trial">Start 14-Day Free Trial</button>
+        <button class="btn btn-trial">Iniciar Teste Gratuito</button>
       </div>
     </div>
   </section>
@@ -274,467 +381,87 @@
     <div class="modules-container">
       <div class="module">
         <i class="fas fa-file-invoice module-icon"></i>
-        <h3>Smart Invoicing</h3>
-        <div class="module-price">MZN 149<span>/mo</span></div>
+        <h3>Faturação Inteligente</h3>
+        <div class="module-price">MZN 149<span>/mês</span></div>
         <ul class="module-features">
-          <li><i class="fas fa-check"></i>Automated billing</li>
-          <li><i class="fas fa-check"></i>Recurring invoices</li>
-          <li><i class="fas fa-check"></i>Multi-currency support</li>
-          <li><i class="fas fa-check"></i>Payment tracking</li>
+          <li><i class="fas fa-check"></i>Faturação automática</li>
+          <li><i class="fas fa-check"></i>Faturas recorrentes</li>
+          <li><i class="fas fa-check"></i>Suporte multi-moeda</li>
+          <li><i class="fas fa-check"></i>Rastreamento de pagamentos</li>
         </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
+        <button class="btn btn-trial">Começar</button>
       </div>
 
       <div class="module">
         <i class="fas fa-chart-line module-icon"></i>
-        <h3>Commercial Suite</h3>
-        <div class="module-price">MZN 199<span>/mo</span></div>
+        <h3>Suite Comercial</h3>
+        <div class="module-price">MZN 199<span>/mês</span></div>
         <ul class="module-features">
-          <li><i class="fas fa-check"></i>Inventory management</li>
-          <li><i class="fas fa-check"></i>Order tracking</li>
-          <li><i class="fas fa-check"></i>Supplier management</li>
-          <li><i class="fas fa-check"></i>CRM integration</li>
+          <li><i class="fas fa-check"></i>Gestão de estoque</li>
+          <li><i class="fas fa-check"></i>Rastreamento de pedidos</li>
+          <li><i class="fas fa-check"></i>Gestão de fornecedores</li>
+          <li><i class="fas fa-check"></i>Integração CRM</li>
         </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
+        <button class="btn btn-trial">Começar</button>
       </div>
 
       <div class="module">
         <i class="fas fa-calculator module-icon"></i>
-        <h3>Accounting Pro</h3>
-        <div class="module-price">MZN 249<span>/mo</span></div>
+        <h3>Contabilidade Pro</h3>
+        <div class="module-price">MZN 249<span>/mês</span></div>
         <ul class="module-features">
-          <li><i class="fas fa-check"></i>Real-time reporting</li>
-          <li><i class="fas fa-check"></i>Tax compliance</li>
-          <li><i class="fas fa-check"></i>Budget forecasting</li>
-          <li><i class="fas fa-check"></i>Multi-company support</li>
+          <li><i class="fas fa-check"></i>Relatórios em tempo real</li>
+          <li><i class="fas fa-check"></i>Conformidade fiscal</li>
+          <li><i class="fas fa-check"></i>Previsão orçamentária</li>
+          <li><i class="fas fa-check"></i>Suporte multi-empresa</li>
         </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
+        <button class="btn btn-trial">Começar</button>
       </div>
 
       <div class="module">
         <i class="fas fa-coins module-icon"></i>
-        <h3>Financial Suite</h3>
-        <div class="module-price">MZN 299<span>/mo</span></div>
+        <h3>Suite Financeira</h3>
+        <div class="module-price">MZN 299<span>/mês</span></div>
         <ul class="module-features">
-          <li><i class="fas fa-check"></i>Cash flow analysis</li>
-          <li><i class="fas fa-check"></i>AP/AR management</li>
-          <li><i class="fas fa-check"></i>Financial dashboards</li>
-          <li><i class="fas fa-check"></i>Audit trails</li>
+          <li><i class="fas fa-check"></i>Análise de fluxo de caixa</li>
+          <li><i class="fas fa-check"></i>Gestão CP/CR</li>
+          <li><i class="fas fa-check"></i>Painéis financeiros</li>
+          <li><i class="fas fa-check"></i>Trilhas de auditoria</li>
         </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
+        <button class="btn btn-trial">Começar</button>
       </div>
     </div>
   </section>
 
   <section class="trust-section">
-    <h3>Trusted by 5,000+ businesses worldwide</h3>
+    <h3>Confiado por mais de 5.000 Empresas Líderes no Mundo</h3>
     <div class="trust-logos">
-      <!-- Add actual client logos here -->
-      <img src="placeholder-logo1.svg" alt="Client 1">
-      <img src="placeholder-logo2.svg" alt="Client 2">
-      <img src="placeholder-logo3.svg" alt="Client 3">
+      <img src="placeholder-logo1.svg" alt="Cliente 1">
+      <img src="placeholder-logo2.svg" alt="Cliente 2">
+      <img src="placeholder-logo3.svg" alt="Cliente 3">
     </div>
   </section>
 
   <footer class="landing-footer">
     <div class="footer-content">
       <div class="footer-section">
-        <h4>EnterpriseERP</h4>
-        <p>Modern business solutions for growing companies.</p>
+        <h4>WALAKA</h4>
+        <p>Soluções empresariais para os desafios do amanhã.</p>
       </div>
       <div class="footer-section">
-        <h4>Product</h4>
+        <h4>Links Rápidos</h4>
         <ul class="footer-links">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#security">Security</a></li>
+          <li><a href="#features">Recursos</a></li>
+          <li><a href="#pricing">Preços</a></li>
+          <li><a href="#contact">Contato</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Company</h4>
+        <h4>Suporte</h4>
         <ul class="footer-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#careers">Careers</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Support</h4>
-        <ul class="footer-links">
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#docs">Documentation</a></li>
-          <li><a href="#status">System Status</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EnterpriseERP - Business Management Suite</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    /* Modern Color Scheme */
-    :root {
-      --primary: #2563eb;
-      --secondary: #1e40af;
-      --accent: #f59e0b;
-      --dark: #1f2937;
-      --light: #f8fafc;
-    }
-
-    /* Base Styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      color: var(--dark);
-      background: var(--light);
-    }
-
-    /* Header */
-    .landing-header {
-      background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .navbar {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--primary);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    .nav-buttons .btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: transform 0.2s ease;
-    }
-
-    .btn-trial {
-      background: var(--primary);
-      color: white;
-      border: none;
-    }
-
-    .btn-login {
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      margin-left: 1rem;
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 8rem 2rem 4rem;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      text-align: center;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
-      color: var(--dark);
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      color: #64748b;
-      margin-bottom: 2rem;
-    }
-
-    /* Features Grid */
-    .modules-container {
-      max-width: 1200px;
-      margin: 4rem auto;
-      padding: 0 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .module {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .module:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-    }
-
-    .module-icon {
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .module h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--dark);
-    }
-
-    .module-price {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 1rem 0;
-    }
-
-    .module-features {
-      list-style: none;
-      margin: 1.5rem 0;
-    }
-
-    .module-features li {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .module-features i {
-      color: var(--primary);
-      margin-right: 0.5rem;
-    }
-
-    /* Trust Badges */
-    .trust-section {
-      text-align: center;
-      padding: 4rem 2rem;
-      background: white;
-    }
-
-    .trust-logos {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-
-    .trust-logos img {
-      height: 40px;
-      opacity: 0.7;
-    }
-
-    /* Footer */
-    .landing-footer {
-      background: var(--dark);
-      color: white;
-      padding: 4rem 2rem;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .footer-section h4 {
-      margin-bottom: 1.5rem;
-      color: white;
-    }
-
-    .footer-links {
-      list-style: none;
-    }
-
-    .footer-links a {
-      color: #cbd5e1;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-links a:hover {
-      color: white;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .modules-container {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header class="landing-header">
-    <nav class="navbar">
-      <div class="logo">EnterpriseERP</div>
-      <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#resources">Resources</a></li>
-      </ul>
-      <div class="nav-buttons">
-        <button class="btn btn-trial">Start Free Trial</button>
-        <a href="login.html"><button class="btn btn-login">Login</button></a>
-      </div>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Transform Your Business Management</h1>
-      <p>All-in-one platform for modern enterprises. Streamline operations, finances, and customer relationships in one place.</p>
-      <div class="cta-buttons">
-        <button class="btn btn-trial">Start 14-Day Free Trial</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="modules-section">
-    <div class="modules-container">
-      <div class="module">
-        <i class="fas fa-file-invoice module-icon"></i>
-        <h3>Smart Invoicing</h3>
-        <div class="module-price">MZN 149<span>/mo</span></div>
-        <ul class="module-features">
-          <li><i class="fas fa-check"></i>Automated billing</li>
-          <li><i class="fas fa-check"></i>Recurring invoices</li>
-          <li><i class="fas fa-check"></i>Multi-currency support</li>
-          <li><i class="fas fa-check"></i>Payment tracking</li>
-        </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
-      </div>
-
-      <div class="module">
-        <i class="fas fa-chart-line module-icon"></i>
-        <h3>Commercial Suite</h3>
-        <div class="module-price">MZN 199<span>/mo</span></div>
-        <ul class="module-features">
-          <li><i class="fas fa-check"></i>Inventory management</li>
-          <li><i class="fas fa-check"></i>Order tracking</li>
-          <li><i class="fas fa-check"></i>Supplier management</li>
-          <li><i class="fas fa-check"></i>CRM integration</li>
-        </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
-      </div>
-
-      <div class="module">
-        <i class="fas fa-calculator module-icon"></i>
-        <h3>Accounting Pro</h3>
-        <div class="module-price">MZN 249<span>/mo</span></div>
-        <ul class="module-features">
-          <li><i class="fas fa-check"></i>Real-time reporting</li>
-          <li><i class="fas fa-check"></i>Tax compliance</li>
-          <li><i class="fas fa-check"></i>Budget forecasting</li>
-          <li><i class="fas fa-check"></i>Multi-company support</li>
-        </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
-      </div>
-
-      <div class="module">
-        <i class="fas fa-coins module-icon"></i>
-        <h3>Financial Suite</h3>
-        <div class="module-price">MZN 299<span>/mo</span></div>
-        <ul class="module-features">
-          <li><i class="fas fa-check"></i>Cash flow analysis</li>
-          <li><i class="fas fa-check"></i>AP/AR management</li>
-          <li><i class="fas fa-check"></i>Financial dashboards</li>
-          <li><i class="fas fa-check"></i>Audit trails</li>
-        </ul>
-        <button class="btn btn-trial">Start Free Trial</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="trust-section">
-    <h3>Trusted by 5,000+ businesses worldwide</h3>
-    <div class="trust-logos">
-      <!-- Add actual client logos here -->
-      <img src="placeholder-logo1.svg" alt="Client 1">
-      <img src="placeholder-logo2.svg" alt="Client 2">
-      <img src="placeholder-logo3.svg" alt="Client 3">
-    </div>
-  </section>
-
-  <footer class="landing-footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>EnterpriseERP</h4>
-        <p>Modern business solutions for growing companies.</p>
-      </div>
-      <div class="footer-section">
-        <h4>Product</h4>
-        <ul class="footer-links">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#security">Security</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Company</h4>
-        <ul class="footer-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#careers">Careers</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Support</h4>
-        <ul class="footer-links">
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#docs">Documentation</a></li>
-          <li><a href="#status">System Status</a></li>
+          <li><a href="#docs">Documentação</a></li>
+          <li><a href="#status">Status do Sistema</a></li>
+          <li><a href="#help">Ajuda</a></li>
         </ul>
       </div>
     </div>
