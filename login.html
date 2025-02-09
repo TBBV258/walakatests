@@ -246,8 +246,14 @@
             
             setTimeout(() => {
                 console.log('Login attempt:', { email, password });
-                button.innerHTML = 'Sign In';
-                button.disabled = false;
+                // Simulate successful login
+                const isSuccess = true; // Change this based on actual login logic
+                if (isSuccess) {
+                    window.location.href = 'dashboard.html'; // Redirect to dashboard
+                } else {
+                    button.innerHTML = 'Sign In';
+                    button.disabled = false;
+                }
             }, 1500);
         }
 
