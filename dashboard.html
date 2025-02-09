@@ -31,6 +31,12 @@
       color: #1e293b;
       min-height: 100vh;
       overflow-x: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    body.loaded {
+      opacity: 1;
     }
 
     .dashboard-container {
@@ -50,6 +56,7 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      transition: transform var(--transition-speed) ease;
     }
 
     .logo {
@@ -217,6 +224,68 @@
       position: relative;
     }
 
+    /* Recent Transactions Table */
+    .recent-transactions {
+      background: white;
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .recent-transactions table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .recent-transactions th,
+    .recent-transactions td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .recent-transactions th {
+      color: #64748b;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .recent-transactions td {
+      color: #1e293b;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .quick-action-card {
+      background: white;
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: transform var(--transition-speed) ease;
+      text-align: center;
+    }
+
+    .quick-action-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .quick-action-card i {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .quick-action-card span {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
     @media (max-width: 768px) {
       .dashboard-container {
         grid-template-columns: 1fr;
@@ -226,7 +295,6 @@
         position: fixed;
         z-index: 1000;
         transform: translateX(-100%);
-        transition: transform var(--transition-speed) ease;
       }
 
       .sidebar.active {
@@ -257,7 +325,7 @@
           <i class="fas fa-home"></i>
           Dashboard
         </a>
-        <a href="#" class="nav-item">
+        <a href="invoice.html" class="nav-item">
           <i class="fas fa-file-invoice"></i>
           Faturas
         </a>
@@ -297,6 +365,22 @@
         </div>
       </div>
 
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <div class="quick-action-card" onclick="window.location.href='invoice.html'">
+          <i class="fas fa-plus"></i>
+          <span>Criar Fatura</span>
+        </div>
+        <div class="quick-action-card" onclick="showCachedInvoices()">
+          <i class="fas fa-list"></i>
+          <span>Exibir Faturas</span>
+        </div>
+        <div class="quick-action-card" id="exportDataButton">
+          <i class="fas fa-download"></i>
+          <span>Exportar Dados</span>
+        </div>
+      </div>
+
       <!-- Metrics Grid -->
       <div class="metrics-grid">
         <div class="metric-card">
@@ -329,6 +413,35 @@
         <div class="chart-container">
           <canvas id="balanceDistributionChart"></canvas>
         </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="recent-transactions">
+        <h3>Transações Recentes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01/10/2023</td>
+              <td>Pagamento de Cliente</td>
+              <td>50.000 MZN</td>
+              <td><span class="status completed">Concluído</span></td>
+            </tr>
+            <tr>
+              <td>30/09/2023</td>
+              <td>Pagamento de Fornecedor</td>
+              <td>25.000 MZN</td>
+              <td><span class="status pending">Pendente</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </main>
   </div>
@@ -403,7 +516,16 @@
 
     // Page Load Animation
     window.addEventListener('load', () => {
-      document.body.style.opacity = '1';
+      document.body.classList.add('loaded');
+    });
+
+    document.getElementById('exportDataButton').addEventListener('click', () => {
+      fetch('/export')
+        .then(response => response.json())
+        .then(data => {
+          console.log('Exported Data:', data);
+        })
+        .catch(error => console.error('Error exporting data:', error));
     });
   </script>
 </body>
