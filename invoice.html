@@ -5,260 +5,237 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fatura</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-</head>
   <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
 
-/* Style for the sidebar */
-.side-menu {
-  width: 50px; /* Initial collapsed width */
-  background-color: #6e6e6e;
-  color: #fff;
-  height: 100vh;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  transition: width 0.3s ease; /* Smooth transition for width change */
-}
+    .side-menu {
+      width: 50px;
+      background-color: #007ec7; /* Corporate blue */
+      color: #fff;
+      height: 100vh;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      transition: width 0.3s ease;
+      overflow: hidden;
+    }
 
-.side-menu:hover {
-  width: 220px; /* Expanded width on hover */
-}
+    .side-menu:hover {
+      width: 220px;
+    }
 
-/* Hide the text by default and show when expanded */
-.side-menu h2 {
-  text-align: right; /* Aligns the text inside the <h2> to the right */
-  margin-bottom: 20px; /* Optional: add space below the title */
-  visibility: hidden; /* Initially hide the text */
-  opacity: 0; /* Make the text fully transparent */
-  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
-}
+    .side-menu h2 {
+      text-align: right;
+      margin-bottom: 20px;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
 
-.side-menu:hover h2 {
-  visibility: visible; /* Make the text visible when sidebar is hovered */
-  opacity: 1; /* Make the text fully opaque when expanded */
-}
+    .side-menu:hover h2 {
+      visibility: visible;
+      opacity: 1;
+    }
 
-.menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-.menu-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-}
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+    }
 
-.menu-item a {
-  text-decoration: none; /* Remove the default underline for links */
-  color: inherit; /* Inherit color from the parent (so it doesn't change the text color) */
-  display: flex;
-  align-items: center;
-}
+    .menu-item a {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+    }
 
-.menu-item img {
-  width: 24px;  /* Icon size */
-  height: 24px; /* Ensure square icon */
-  margin-right: 10px; /* Space between icon and text */
-}
+    .menu-item img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+      filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg);
+    }
 
-/* Hover effect and active state for menu items */
-.menu-item:hover, .menu-item.active {
-  background-color: #334155;
-}
+    .menu-item:hover, .menu-item.active {
+      background-color: #007ec7; /* Corporate blue */
+    }
 
-/* Icon size adjustments */
-.menu-item img {
-  width: 24px;
-  height: 24px;
-  margin-right: 21px;
-  transition: transform 0.3s ease;
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg); /* Adjust color */
-}
+    .side-menu:hover .menu-item span {
+      opacity: 1;
+      visibility: visible;
+    }
 
-/* Hide text when collapsed and show when expanded */
-.side-menu {
-  overflow: hidden; /* Prevent text overflow when collapsed */
-}
+    .menu-item span {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
 
-.side-menu:hover .menu-item span {
-  opacity: 1; /* Show text on hover */
-  visibility: visible;
-}
+    .container {
+      margin-left: 280px;
+      padding: 20px;
+      display: block;
+      width: 800px;
+    }
 
-.menu-item span {
-  opacity: 0; /* Initially hide the text */
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
-}
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-/* Container for content */
-.container {
-  margin-left: 280px; /* Adjust content margin for expanded sidebar */
-  padding: 20px;
-  display: block;
-  width: 800px;
-}
+    h1 {
+      font-size: 24px;
+      color: #1e293b;
+    }
 
-/* Header section styling */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
+    .btn {
+      background-color: #007ec7; /* Corporate blue */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-h1 {
-  font-size: 24px;
-  color: #1e293b;
-}
+    .btn:hover {
+      background-color: #005f99; /* Darker shade of corporate blue */
+    }
 
-/* Button styling */
-.btn {
-  background-color: #4f46e5;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
+    .content {
+      display: flex;
+      gap: 20px;
+      width: 800px;
+    }
 
-.btn:hover {
-  background-color: #4338ca;
-}
+    .section {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      flex: 1;
+    }
 
-/* Content section styling */
-.content {
-  display: flex;
-  gap: 20px;
-  width: 800px
-}
+    .section h2 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #4b5563;
+      border-bottom: 2px solid #007ec7; /* Corporate blue */
+      padding-bottom: 5px;
+    }
 
-.section {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 10px 10px 10px 10px;
-  flex: 1;
-}
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
 
-.section h2 {
-  margin-bottom: 15px;
-  font-size: 18px;
-  color: #4b5563;
-  border-bottom: 2px solid #4f46e5;
-  padding-bottom: 5px;
-}
+    .form-group label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
 
-/* Form styling */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-}
+    .form-group input, .form-group select {
+      padding: 5px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #374151;
+    }
 
-.form-group label {
-  font-size: 12px;
-  color: #6b7280;
-  margin-bottom: 2px;
-  font-weight: 600;
-}
+    .table-section {
+      margin-top: 20px;
+    }
 
-.form-group input, .form-group select {
-  padding: 5px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 12px;
-  color: #374151;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
 
-/* Table section styling */
-.table-section {
-  margin-top: 20px;
-}
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
+    table th {
+      background-color: #f4f4f4;
+    }
 
-table th, table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
+    .totals {
+      text-align: right;
+      margin-top: 20px;
+    }
 
-table th {
-  background-color: #f4f4f4;
-}
+    .totals p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
 
-/* Totals section */
-.totals {
-  text-align: right;
-  margin-top: 20px;
-}
-
-.totals p {
-  margin: 5px 0;
-  font-size: 16px;
-}
-
-.totals p strong {
-  font-size: 18px;
-  color: #1e293b;
-}
+    .totals p strong {
+      font-size: 18px;
+      color: #1e293b;
+    }
   </style>
-  
+</head>
 <body>
   <div class="side-menu">
     <h2>Invoice</h2>
-<ul class="menu">
-  <li class="menu-item">
-    <a href="dashboard.html">
-      <img src="img/dashboard.svg" alt="Dashboard">
-      Dashboard
-    </a>
-  </li>
-  <li class="menu-item active">
-    <a href="invoice.html">
-      <img src="img/invoice.svg" alt="Invoicing">
-      Invoicing
-    </a>
-  </li>
-  <li class="menu-item">
-    <a href="commercial.html">
-      <img src="img/commercial.svg" alt="Commercial">
-      Commercial
-    </a>
-  </li>
-  <li class="menu-item">
-    <a href="accounting.html">
-      <img src="img/accounting.svg" alt="Accounting">
-      Accounting
-    </a>
-  </li>
-  <li class="menu-item">
-    <a href="financial.html">
-      <img src="img/financial.svg" alt="Financial">
-      Financial
-    </a>
-  </li>
-  <li class="menu-item">
-    <a href="settings.html">
-      <img src="img/settings.svg" alt="Settings">
-      Settings
-    </a>
-  </li>
-</ul>
-
+    <ul class="menu">
+      <li class="menu-item">
+        <a href="dashboard.html">
+          <img src="img/dashboard.svg" alt="Dashboard">
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="menu-item active">
+        <a href="invoice.html">
+          <img src="img/invoice.svg" alt="Invoicing">
+          <span>Invoicing</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="commercial.html">
+          <img src="img/commercial.svg" alt="Commercial">
+          <span>Commercial</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="accounting.html">
+          <img src="img/accounting.svg" alt="Accounting">
+          <span>Accounting</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="financial.html">
+          <img src="img/financial.svg" alt="Financial">
+          <span>Financial</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="settings.html">
+          <img src="img/settings.svg" alt="Settings">
+          <span>Settings</span>
+        </a>
+      </li>
+    </ul>
   </div>
 
   <div class="container">
@@ -302,6 +279,12 @@ table th {
           <label for="payment-terms">Condições de Pagamento:</label>
           <input type="text" id="payment-terms" placeholder="Ex: Pagamento em 30 dias">
         </div>
+        <div class="section">
+          <div class="form-group">
+            <label for="invoice-description">Descrição da Factura:</label>
+            <input type="text" id="invoice-description" placeholder="Descrição do serviço prestado">
+          </div>
+        </div>
       </div>
     </div>
 
@@ -339,7 +322,6 @@ table th {
       </table>
       <button id="add-item" class="btn">Adicionar Item</button>
     </div>
-    
 
     <div class="totals">
       <p><strong>Subtotal:</strong> <span id="subtotal">0.00</span> MZN</p>
@@ -348,179 +330,286 @@ table th {
     </div>
   </div>
 
-<script>
-// Function to calculate the totals, VAT, and overall total
-function calculateTotals() {
-  let subtotal = 0; // Sum of all item subtotals
-  let totalVAT = 0; // Sum of all VAT values
+  <script>
+    function calculateTotals() {
+      let subtotal = 0;
+      let totalVAT = 0;
 
-  const rows = document.querySelectorAll('#items-body tr'); // Select all rows in the table
+      const rows = document.querySelectorAll('#items-body tr');
 
-  rows.forEach(row => {
-    const quantity = parseFloat(row.querySelector('.item-quantity').value) || 0;
-    const price = parseFloat(row.querySelector('.item-price').value) || 0;
+      rows.forEach(row => {
+        const quantity = parseFloat(row.querySelector('.item-quantity').value) || 0;
+        const price = parseFloat(row.querySelector('.item-price').value) || 0;
 
-    // Get the selected VAT rate or custom VAT
-    const vatSelect = row.querySelector('.vat-select');
-    let vatRate = parseFloat(vatSelect.value) || 0; // Default to 0% VAT
-    const customVatInput = row.querySelector('.custom-vat');
-    if (vatSelect.value === "custom" && customVatInput.value) {
-      vatRate = parseFloat(customVatInput.value) || 0; // Use custom VAT if provided
+        const vatSelect = row.querySelector('.vat-select');
+        let vatRate = parseFloat(vatSelect.value) || 0;
+        const customVatInput = row.querySelector('.custom-vat');
+        if (vatSelect.value === "custom" && customVatInput.value) {
+          vatRate = parseFloat(customVatInput.value) || 0;
+        }
+
+        const rowSubtotal = quantity * price;
+        const rowVAT = rowSubtotal * (vatRate / 100);
+        const rowTotal = rowSubtotal + rowVAT;
+
+        row.querySelector('.item-total').textContent = rowTotal.toFixed(2);
+
+        subtotal += rowSubtotal;
+        totalVAT += rowVAT;
+      });
+
+      const grandTotal = subtotal + totalVAT;
+
+      document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+      document.getElementById('vat').textContent = totalVAT.toFixed(2);
+      document.getElementById('total').textContent = grandTotal.toFixed(2);
     }
 
-    // Calculate the subtotal for this row (quantity * price)
-    const rowSubtotal = quantity * price;
+    function generatePDF() {
+      const clientName = document.getElementById("client-name").value || "N/A";
+      const clientAddress = document.getElementById("client-address").value || "N/A";
+      const issueDate = document.getElementById("issue-date").value || "N/A";
+      const clientNUIT = document.getElementById("client-NUIT").value || "N/A";
+      const clientEmail = document.getElementById("client-email").value || "N/A";
+      const paymentTerms = document.getElementById("payment-terms").value || "N/A";
+      const invoiceDescription = document.getElementById("invoice-description").value || "N/A";
+      const invoiceNumber = Math.floor(Math.random() * 1000000); // Autogenerated invoice number
 
-    // Calculate the VAT for this row
-    const rowVAT = rowSubtotal * (vatRate / 100);
+      const items = [...document.querySelectorAll("#items-body tr")].map((row, index) => ({
+        description: row.querySelector("td:nth-child(2) input").value || "N/A",
+        quantity: row.querySelector(".item-quantity").value || "0",
+        price: row.querySelector(".item-price").value || "0",
+        total: row.querySelector(".item-total").textContent || "0.00",
+        index: index + 1 // Add index for SL
+      }));
 
-    // Calculate the total for this row (subtotal + VAT)
-    const rowTotal = rowSubtotal + rowVAT;
+      const subtotal = document.getElementById("subtotal").textContent;
+      const vat = document.getElementById("vat").textContent;
+      const total = document.getElementById("total").textContent;
 
-    // Update the row's total in the table
-    row.querySelector('.item-total').textContent = rowTotal.toFixed(2);
+      // Template for the PDF content
+      const pdfContent = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Invoice</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    background-color: #f9f9f9;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .invoice-container {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    background: #fff;
+                    padding: 20px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    border-radius: 8px;
+                }
+                .header {
+                    text-align: center;
+                    padding-bottom: 20px;
+                    border-bottom: 2px solid #007ec7; /* Corporate blue */
+                }
+                .header h1 {
+                    font-size: 28px;
+                    color: #007ec7; /* Corporate blue */
+                    margin: 0;
+                }
+                .invoice-info {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+                }
+                .invoice-info div {
+                    flex: 1;
+                }
+                .invoice-info h2 {
+                    font-size: 18px;
+                    color: #555;
+                    margin: 0 0 10px 0;
+                }
+                .invoice-info p {
+                    margin: 0;
+                    color: #777;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                }
+                table th, table td {
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                }
+                table th {
+                    background-color: #007ec7; /* Corporate blue */
+                    color: white;
+                }
+                table tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+                .footer {
+                    margin-top: 20px;
+                    padding-top: 20px;
+                    border-top: 2px solid #007ec7; /* Corporate blue */
+                }
+                .footer p {
+                    margin: 5px 0;
+                    color: #555;
+                }
+                .footer ul {
+                    margin: 10px 0;
+                    padding-left: 20px;
+                }
+                .footer ul li {
+                    list-style-type: none;
+                    color: #777;
+                }
+                .total {
+                    text-align: right;
+                    margin-top: 20px;
+                    font-size: 18px;
+                    color: #007ec7; /* Corporate blue */
+                }
+                .total p {
+                    margin: 5px 0;
+                }
+                .authorised-sign {
+                    margin-top: 20px;
+                    text-align: right;
+                    font-style: italic;
+                    color: #777;
+                }
+            </style>
+        </head>
+        <body>
 
-    // Add to the overall subtotal and VAT
-    subtotal += rowSubtotal;
-    totalVAT += rowVAT;
-  });
+            <div class="invoice-container">
+                <div class="header">
+                    <h1>INVOICE</h1>
+                </div>
 
-  // Calculate the overall grand total
-  const grandTotal = subtotal + totalVAT;
+                <div class="invoice-info">
+                    <div>
+                        <h2>Invoice to:</h2>
+                        <p>${clientName}</p>
+                        <p>${clientAddress}</p>
+                        <p>${clientEmail}</p>
+                        <p>${clientNUIT}</p>
+                    </div>
+                    <div>
+                        <h2>Invoice #</h2>
+                        <p>${invoiceNumber}</p>
+                        <p><strong>Date:</strong> ${issueDate}</p>
+                        <p><strong>Payment Terms:</strong> ${paymentTerms}</p>
+                        <p><strong>Description:</strong> ${invoiceDescription}</p>
+                    </div>
+                </div>
 
-  // Update the totals in the document
-  document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-  document.getElementById('vat').textContent = totalVAT.toFixed(2);
-  document.getElementById('total').textContent = grandTotal.toFixed(2);
-}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SL.</th>
+                            <th>Item Description</th>
+                            <th>Price</th>
+                            <th>Qty.</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items.map(item => `
+                            <tr>
+                                <td>${item.index}</td>
+                                <td>${item.description}</td>
+                                <td>${item.price}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.total}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
 
-  // Function to generate PDF
-  function generatePDF() {
-    const clientName = document.getElementById("client-name").value || "N/A";
-    const clientAddress = document.getElementById("client-address").value || "N/A";
-    const issueDate = document.getElementById("issue-date").value || "N/A";
-    const dueDate = document.getElementById("due-date").value || "N/A";
-    const clientNUIT = document.getElementById("client-NUIT").value || "N/A";
+                <div class="total">
+                    <p><strong>Sub Total:</strong> ${subtotal} MZN</p>
+                    <p><strong>Tax:</strong> ${vat} MZN</p>
+                    <p><strong>Total:</strong> ${total} MZN</p>
+                </div>
 
-    // Get items data
-    const items = [...document.querySelectorAll("#items-body tr")].map(row => ({
-      description: row.querySelector("td:nth-child(2) input").value || "N/A",
-      quantity: row.querySelector(".item-quantity").value || "0",
-      price: row.querySelector(".item-price").value || "0",
-      total: row.querySelector(".item-total").textContent || "0.00"
-    }));
+                <div class="authorised-sign">
+                    <p>Assinatura autorizada</p>
+                </div>
+            </div>
 
-    const subtotal = document.getElementById("subtotal").textContent;
-    const vat = document.getElementById("vat").textContent;
-    const total = document.getElementById("total").textContent;
+        </body>
+        </html>`;
 
-    const pdfContent = `
-<div style="font-family: 'Arial', sans-serif; padding: 20px; max-width: 800px; margin: auto; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-  <h1 style="text-align: center; color: #2c3e50; font-size: 20pt; margin-bottom: 10px;">Factura</h1>
-  <div style="margin-bottom: 20px; font-size: 10pt; color: #111;">
-    <h3 style="margin-bottom: 8px; color: #111;">Informações do Cliente</h3>
-    <p><strong>Nome:</strong> ${clientName}</p>
-    <p><strong>NUIT:</strong> ${clientNUIT}</p>
-    <p><strong>Endereço:</strong> ${clientAddress}</p>
-  </div>
-  <div style="margin-bottom: 20px; font-size: 10pt; color: #111;">
-    <h3 style="margin-bottom: 8px; color: #111;">Detalhes da Factura</h3>
-    <p><strong>Data de Emissão:</strong> ${issueDate}</p>
-    <p><strong>Data de Vencimento:</strong> ${dueDate}</p>
-  </div>
-  <h3 style="margin-bottom: 8px; color: #111;">Itens</h3>
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: #fff; border-radius: 4px; overflow: hidden;">
-    <thead>
-      <tr style="background-color: #2980b9; color: #fff; text-align: left;">
-        <th style="padding: 10px; font-weight: bold;">Descrição</th>
-        <th style="padding: 10px; font-weight: bold;">Quantidade</th>
-        <th style="padding: 10px; font-weight: bold;">Preço Unitário</th>
-        <th style="padding: 10px; font-weight: bold;">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${items.map(
-        (item, index) => `
-        <tr style="background-color: ${index % 2 === 0 ? '#ecf0f1' : '#ffffff'};">
-          <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.description}</td>
-          <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantity}</td>
-          <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${item.price} MZN</td>
-          <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${item.total} MZN</td>
-        </tr>
-      `).join('')}
-    </tbody>
-  </table>
-  <div style="text-align: right; font-size: 10pt; color: #34495e;">
-    <p><strong>Subtotal:</strong> ${subtotal} MZN</p>
-    <p><strong>IVA (16%):</strong> ${vat} MZN</p>
-    <p style="font-size: 12pt; font-weight: bold; color: #e74c3c;"><strong>Total Geral:</strong> ${total} MZN</p>
-  </div>
-</div>`;
+      const options = {
+        margin: 10,
+        filename: 'invoice.pdf',
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
 
-    const options = {
-      margin: 10,
-      filename: 'invoice.pdf',
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+      html2pdf().set(options).from(pdfContent).save();
+    }
 
-    html2pdf().set(options).from(pdfContent).save();
-  }
+    document.addEventListener("change", (event) => {
+      if (event.target.classList.contains("vat-select")) {
+        const vatSelect = event.target;
+        const customVatInput = vatSelect.nextElementSibling;
 
-  // Event listener for VAT dropdown
-  document.addEventListener("change", (event) => {
-    if (event.target.classList.contains("vat-select")) {
-      const vatSelect = event.target;
-      const customVatInput = vatSelect.nextElementSibling;
-
-      if (vatSelect.value === "custom") {
-        customVatInput.style.display = "inline-block";
-        customVatInput.focus(); // Focus on the custom input
-      } else {
-        customVatInput.style.display = "none";
-        customVatInput.value = ""; // Clear the custom input value
+        if (vatSelect.value === "custom") {
+          customVatInput.style.display = "inline-block";
+          customVatInput.focus();
+        } else {
+          customVatInput.style.display = "none";
+          customVatInput.value = "";
+        }
+        calculateTotals();
       }
-      calculateTotals(); // Recalculate totals when VAT is changed
-    }
-  });
-
-  // Add event listeners to input fields for real-time calculation
-  document.querySelectorAll('.item-quantity, .item-price').forEach(input => {
-    input.addEventListener('input', calculateTotals);
-  });
-
-  // Add a new item to the table
-  document.getElementById('add-item').addEventListener('click', () => {
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td><button class="remove-item">X</button></td>
-      <td><input type="text" placeholder="Descrição"></td>
-      <td><input type="number" value="1" min="1" class="item-quantity"></td>
-      <td><input type="number" value="0" step="0.01" class="item-price"></td>
-      <td>
-        <select class="vat-select">
-          <option value="16" selected>16%</option>
-          <option value="5">5%</option>
-          <option value="0">Isento</option>
-          <option value="custom">Outro</option>
-        </select>
-        <input type="number" step="0.01" class="custom-vat" style="display: none;" placeholder="%" />
-      </td>
-      <td class="item-total">0.00</td>
-    `;
-    document.getElementById('items-body').appendChild(newRow);
-
-    // Reattach event listeners to the new input fields
-    newRow.querySelector('.item-quantity').addEventListener('input', calculateTotals);
-    newRow.querySelector('.item-price').addEventListener('input', calculateTotals);
-    newRow.querySelector('.vat-select').addEventListener('change', calculateTotals);
-    newRow.querySelector('.remove-item').addEventListener('click', () => {
-      newRow.remove();
-      calculateTotals();
     });
-  });
 
-</script>
-  
+    document.querySelectorAll('.item-quantity, .item-price').forEach(input => {
+      input.addEventListener('input', calculateTotals);
+    });
+
+    document.getElementById('add-item').addEventListener('click', () => {
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+        <td><button class="remove-item">X</button></td>
+        <td><input type="text" placeholder="Descrição"></td>
+        <td><input type="number" value="1" min="1" class="item-quantity"></td>
+        <td><input type="number" value="0" step="0.01" class="item-price"></td>
+        <td>
+          <select class="vat-select">
+            <option value="16" selected>16%</option>
+            <option value="5">5%</option>
+            <option value="0">Isento</option>
+            <option value="custom">Outro</option>
+          </select>
+          <input type="number" step="0.01" class="custom-vat" style="display: none;" placeholder="%" />
+        </td>
+        <td class="item-total">0.00</td>
+      `;
+      document.getElementById('items-body').appendChild(newRow);
+
+      newRow.querySelector('.item-quantity').addEventListener('input', calculateTotals);
+      newRow.querySelector('.item-price').addEventListener('input', calculateTotals);
+      newRow.querySelector('.vat-select').addEventListener('change', calculateTotals);
+      newRow.querySelector('.remove-item').addEventListener('click', () => {
+        newRow.remove();
+        calculateTotals();
+      });
+    });
+
+    document.getElementById('generate-pdf').addEventListener('click', generatePDF);
+  </script>
 </body>
 </html>
