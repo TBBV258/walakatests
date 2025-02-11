@@ -90,13 +90,19 @@
       width: 100%;
     }
 
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
     .nav-buttons .btn {
-      padding: 0.9rem 2rem;
+      padding: 0.6rem 1.5rem;
       border-radius: 8px;
       font-weight: 600;
       transition: all 0.3s ease;
       cursor: pointer;
-      font-size: 1.05rem;
+      font-size: 0.9rem;
     }
 
     .btn-trial {
@@ -116,13 +122,62 @@
       background: transparent;
       color: var(--primary);
       border: 2px solid var(--primary);
-      margin-left: 1.2rem;
     }
 
     .btn-login:hover {
       background: var(--primary);
       color: white;
       transform: translateY(-2px);
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .search-bar {
+      padding: 0.8rem;
+      border: 1px solid var(--gray);
+      border-radius: 5px;
+      font-size: 1rem;
+      width: 0;
+      opacity: 0;
+      transition: width 0.4s ease, opacity 0.4s ease;
+      position: absolute;
+      right: 40px; /* Adjust position */
+      z-index: 1;
+    }
+
+    .search-icon {
+      font-size: 1.5rem;
+      color: var(--primary);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .search-icon:hover {
+      color: var(--secondary);
+    }
+
+    .search-icon:focus + .search-bar,
+    .search-bar:focus {
+      width: 200px;
+      opacity: 1;
+      outline: none;
+    }
+
+    .language-toggle {
+      padding: 0.4rem; /* Reduced padding for smaller size */
+      border: 1px solid var(--gray);
+      border-radius: 5px;
+      font-size: 0.6rem; /* 40% smaller */
+      transition: border-color 0.3s ease;
+    }
+
+    .language-toggle:focus {
+      border-color: var(--primary);
+      outline: none;
     }
 
     /* Seção Hero */
@@ -146,6 +201,7 @@
       line-height: 1.2;
       background: linear-gradient(to right, var(--dark), var(--primary));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -361,8 +417,16 @@
         <li><a href="#resources">Recursos</a></li>
       </ul>
       <div class="nav-buttons">
-        <a href="dashboard.html"><button class="btn btn-trial">Começar</button></a>
+        <div class="input-group">
+          <i class="fas fa-search search-icon" tabindex="0"></i>
+          <input type="text" placeholder="Search..." class="search-bar" aria-label="Search">
+        </div>
+        <a href="dashboard.html"><button class="btn btn-trial">Iniciar Teste Gratuito</button></a>
         <a href="login.html"><button class="btn btn-login">Entrar</button></a>
+        <select class="language-toggle" aria-label="Select Language">
+          <option value="pt">PT</option>
+          <option value="en">EN</option>
+        </select>
       </div>
     </nav>
   </header>
@@ -434,7 +498,7 @@
   </section>
 
   <section class="trust-section">
-    <h3>Confiado por mais de 5.000 Empresas Líderes no Mundo</h3>
+    
     <div class="trust-logos">
       <img src="placeholder-logo1.svg" alt="Cliente 1">
       <img src="placeholder-logo2.svg" alt="Cliente 2">
@@ -448,22 +512,7 @@
         <h4>WALAKA</h4>
         <p>Soluções empresariais para os desafios do amanhã.</p>
       </div>
-      <div class="footer-section">
-        <h4>Links Rápidos</h4>
-        <ul class="footer-links">
-          <li><a href="#features">Recursos</a></li>
-          <li><a href="#pricing">Preços</a></li>
-          <li><a href="#contact">Contato</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Suporte</h4>
-        <ul class="footer-links">
-          <li><a href="#docs">Documentação</a></li>
-          <li><a href="#status">Status do Sistema</a></li>
-          <li><a href="#help">Ajuda</a></li>
-        </ul>
-      </div>
+      
     </div>
   </footer>
 </body>
