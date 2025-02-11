@@ -193,6 +193,46 @@
       font-size: 18px;
       color: #1e293b;
     }
+
+    .invoice-list {
+      margin-top: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+    }
+
+    .invoice-list h2 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #4b5563;
+      border-bottom: 2px solid #007ec7; /* Corporate blue */
+      padding-bottom: 5px;
+    }
+
+    .invoice-list table {
+      width: 100%;
+    }
+
+    .invoice-list th, .invoice-list td {
+      text-align: center;
+    }
+
+    .invoice-list .action-btn {
+      margin: 0 5px;
+    }
+
+    .side-by-side-container {
+      display: flex;
+      gap: 20px; /* Adjust the gap as needed */
+      width: 800px;
+      margin-top: 25px; /* Added margin for spacing */
+    }
+
+    .side-by-side-container .section {
+      flex: 1; /* Each takes up equal width */
+    }
+
   </style>
 </head>
 <body>
@@ -244,7 +284,105 @@
       <button id="generate-pdf" class="btn">Imprimir/Descarregar</button>
     </div>
 
-    <div class="content">
+    <div class="invoice-list">
+      <h2>Facturas Existentes</h2>
+      <div class="invoice-actions">
+        <button class="btn action-btn">
+          <img src="img/view.svg" alt="View" class="btn-icon">
+          Visualizar
+        </button>
+        <button class="btn action-btn">
+          <img src="img/edit.svg" alt="Edit" class="btn-icon">
+          Editar
+        </button>
+        <button class="btn action-btn">
+          <img src="img/delete.svg" alt="Delete" class="btn-icon">
+          Apagar
+        </button>
+        <button class="btn action-btn">
+          <img src="img/send.svg" alt="Send" class="btn-icon">
+          Enviar
+        </button>
+        <button class="btn action-btn">
+          <img src="img/save.svg" alt="Save" class="btn-icon">
+          Gravar
+        </button>
+      </div>
+      
+      <div class="table-container">
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th class="checkbox-column">
+                <input type="checkbox" id="select-all" class="custom-checkbox">
+                <label for="select-all"></label>
+              </th>
+              <th>ID da Fatura</th>
+              <th>Cliente</th>
+              <th>Data</th>
+              <th>Valor</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="checkbox-column">
+                <input type="checkbox" id="invoice-1" class="custom-checkbox">
+                <label for="invoice-1"></label>
+              </td>
+              <td>FT-2025/001</td>
+              <td>Empresa ABC</td>
+              <td>11/02/2025</td>
+              <td>15.000,00 MT</td>
+              <td><span class="status-badge active">Ativo</span></td>
+            </tr>
+            <tr>
+              <td class="checkbox-column">
+                <input type="checkbox" id="invoice-2" class="custom-checkbox">
+                <label for="invoice-2"></label>
+              </td>
+              <td>FT-2025/002</td>
+              <td>Tech Solutions</td>
+              <td>10/02/2025</td>
+              <td>8.500,00 MT</td>
+              <td><span class="status-badge inactive">Inativo</span></td>
+            </tr>
+            <tr>
+              <td class="checkbox-column">
+                <input type="checkbox" id="invoice-3" class="custom-checkbox">
+                <label for="invoice-3"></label>
+              </td>
+              <td>FT-2025/003</td>
+              <td>Global Trade</td>
+              <td>09/02/2025</td>
+              <td>22.750,00 MT</td>
+              <td><span class="status-badge paid">Pago</span></td>
+            </tr>
+            <tr>
+              <td class="checkbox-column">
+                <input type="checkbox" id="invoice-4" class="custom-checkbox">
+                <label for="invoice-4"></label>
+              </td>
+              <td>FT-2025/004</td>
+              <td>Local Services</td>
+              <td>08/02/2025</td>
+              <td>12.300,00 MT</td>
+              <td><span class="status-badge pending">Pendente</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      <div class="pagination">
+        <button class="btn-page" disabled>&lt;</button>
+        <button class="btn-page active">1</button>
+        <button class="btn-page">2</button>
+        <button class="btn-page">3</button>
+        <button class="btn-page">&gt;</button>
+      </div>
+    </div>
+
+    <div class="side-by-side-container">
       <div class="section">
         <h2>Informações do Cliente</h2>
         <div class="form-group">
@@ -279,11 +417,9 @@
           <label for="payment-terms">Condições de Pagamento:</label>
           <input type="text" id="payment-terms" placeholder="Ex: Pagamento em 30 dias">
         </div>
-        <div class="section">
-          <div class="form-group">
-            <label for="invoice-description">Descrição da Factura:</label>
-            <input type="text" id="invoice-description" placeholder="Descrição do serviço prestado">
-          </div>
+        <div class="form-group">
+          <label for="invoice-description">Descrição da Factura:</label>
+          <input type="text" id="invoice-description" placeholder="Descrição do serviço prestado">
         </div>
       </div>
     </div>
@@ -298,6 +434,7 @@
             <th>Quantidade</th>
             <th>Preço Unitário</th>
             <th>IVA</th>
+            <th>Taxa IVA</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -316,6 +453,7 @@
               </select>
               <input type="number" step="0.01" class="custom-vat" style="display: none;" placeholder="%" />
             </td>
+            <td class="item-vat-rate">0.00</td>
             <td class="item-total">0.00</td>
           </tr>
         </tbody>
@@ -328,9 +466,12 @@
       <p><strong>IVA (16%):</strong> <span id="vat">0.00</span> MZN</p>
       <p><strong>Total Geral:</strong> <span id="total">0.00</span> MZN</p>
     </div>
+
   </div>
 
   <script>
+    let invoiceCounter = 1; // Initialize invoice number counter
+
     function calculateTotals() {
       let subtotal = 0;
       let totalVAT = 0;
@@ -353,6 +494,7 @@
         const rowTotal = rowSubtotal + rowVAT;
 
         row.querySelector('.item-total').textContent = rowTotal.toFixed(2);
+        row.querySelector('.item-vat-rate').textContent = vatRate.toFixed(2) + "%";
 
         subtotal += rowSubtotal;
         totalVAT += rowVAT;
@@ -373,12 +515,15 @@
       const clientEmail = document.getElementById("client-email").value || "N/A";
       const paymentTerms = document.getElementById("payment-terms").value || "N/A";
       const invoiceDescription = document.getElementById("invoice-description").value || "N/A";
-      const invoiceNumber = Math.floor(Math.random() * 1000000); // Autogenerated invoice number
+      const invoiceNumber = String(invoiceCounter).padStart(4, '0'); // Format invoice number
+
+      invoiceCounter++; // Increment invoice number for next use
 
       const items = [...document.querySelectorAll("#items-body tr")].map((row, index) => ({
         description: row.querySelector("td:nth-child(2) input").value || "N/A",
         quantity: row.querySelector(".item-quantity").value || "0",
         price: row.querySelector(".item-price").value || "0",
+        vatRate: row.querySelector(".item-vat-rate").textContent || "0%",
         total: row.querySelector(".item-total").textContent || "0.00",
         index: index + 1 // Add index for SL
       }));
@@ -487,6 +632,11 @@
                     font-style: italic;
                     color: #777;
                 }
+                .description {
+                    text-align: right;
+                    margin-top: 20px;
+                    color: #555;
+                }
             </style>
         </head>
         <body>
@@ -509,7 +659,6 @@
                         <p>${invoiceNumber}</p>
                         <p><strong>Date:</strong> ${issueDate}</p>
                         <p><strong>Payment Terms:</strong> ${paymentTerms}</p>
-                        <p><strong>Description:</strong> ${invoiceDescription}</p>
                     </div>
                 </div>
 
@@ -520,6 +669,7 @@
                             <th>Item Description</th>
                             <th>Price</th>
                             <th>Qty.</th>
+                            <th>VAT Rate</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -530,6 +680,7 @@
                                 <td>${item.description}</td>
                                 <td>${item.price}</td>
                                 <td>${item.quantity}</td>
+                                <td>${item.vatRate}</td>
                                 <td>${item.total}</td>
                             </tr>
                         `).join('')}
@@ -544,6 +695,9 @@
 
                 <div class="authorised-sign">
                     <p>Assinatura autorizada</p>
+                </div>
+                <div class="description">
+                    <p><strong>Descrição:</strong> ${invoiceDescription}</p>
                 </div>
             </div>
 
@@ -596,6 +750,7 @@
           </select>
           <input type="number" step="0.01" class="custom-vat" style="display: none;" placeholder="%" />
         </td>
+        <td class="item-vat-rate">0.00</td>
         <td class="item-total">0.00</td>
       `;
       document.getElementById('items-body').appendChild(newRow);
