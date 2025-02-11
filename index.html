@@ -341,7 +341,7 @@
     .landing-footer {
       background: var(--dark);
       color: white;
-      padding: 5rem 2rem;
+      padding: 1.7rem 2rem;
     }
 
     .footer-content {
@@ -353,9 +353,9 @@
     }
 
     .footer-section h4 {
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
       color: white;
-      font-size: 1.4rem;
+      font-size: 1.7rem;
       font-weight: 600;
     }
 
@@ -389,7 +389,7 @@
       }
 
       .hero h1 {
-        font-size: 3rem;
+        font-size: 1.7rem;
       }
 
       .hero p {
@@ -402,10 +402,157 @@
 
       .footer-content {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 1rem;
       }
     }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const languageToggle = document.querySelector('.language-toggle');
+      const elementsToTranslate = {
+        'pt': {
+          'logo': 'WALAKA',
+          'solutions': 'Soluções',
+          'pricing': 'Preços',
+          'resources': 'Recursos',
+          'searchPlaceholder': 'Buscar...',
+          'trialButton': 'Iniciar Teste Gratuito',
+          'loginButton': 'Entrar',
+          'heroTitle': 'Impulsione o Crescimento da Sua Empresa',
+          'heroText': 'Plataforma unificada de gestão empresarial projetada para empresas modernas. Otimize operações, gerencie finanças e melhore relacionamentos com clientes.',
+          'module1Title': 'Faturação Inteligente',
+          'module1Price': 'MZN 149',
+          'module1Features': [
+            'Faturação automática',
+            'Faturas recorrentes',
+            'Suporte multi-moeda',
+            'Rastreamento de pagamentos'
+          ],
+          'module2Title': 'Suite Comercial',
+          'module2Price': 'MZN 199',
+          'module2Features': [
+            'Gestão de estoque',
+            'Rastreamento de pedidos',
+            'Gestão de fornecedores',
+            'Integração CRM'
+          ],
+          'module3Title': 'Contabilidade Pro',
+          'module3Price': 'MZN 249',
+          'module3Features': [
+            'Relatórios em tempo real',
+            'Conformidade fiscal',
+            'Previsão orçamentária',
+            'Suporte multi-empresa'
+          ],
+          'module4Title': 'Suite Financeira',
+          'module4Price': 'MZN 299',
+          'module4Features': [
+            'Análise de fluxo de caixa',
+            'Gestão CP/CR',
+            'Painéis financeiros',
+            'Trilhas de auditoria'
+          ],
+          'footerText': 'Soluções empresariais para os desafios do amanhã.'
+        },
+        'en': {
+          'logo': 'WALAKA',
+          'solutions': 'Solutions',
+          'pricing': 'Pricing',
+          'resources': 'Resources',
+          'searchPlaceholder': 'Search...',
+          'trialButton': 'Start Free Trial',
+          'loginButton': 'Login',
+          'heroTitle': 'Boost Your Company\'s Growth',
+          'heroText': 'Unified business management platform designed for modern companies. Optimize operations, manage finances, and improve customer relationships.',
+          'module1Title': 'Smart Invoicing',
+          'module1Price': 'MZN 149',
+          'module1Features': [
+            'Automatic invoicing',
+            'Recurring invoices',
+            'Multi-currency support',
+            'Payment tracking'
+          ],
+          'module2Title': 'Business Suite',
+          'module2Price': 'MZN 199',
+          'module2Features': [
+            'Inventory management',
+            'Order tracking',
+            'Supplier management',
+            'CRM integration'
+          ],
+          'module3Title': 'Pro Accounting',
+          'module3Price': 'MZN 249',
+          'module3Features': [
+            'Real-time reporting',
+            'Tax compliance',
+            'Budget forecasting',
+            'Multi-company support'
+          ],
+          'module4Title': 'Financial Suite',
+          'module4Price': 'MZN 299',
+          'module4Features': [
+            'Cash flow analysis',
+            'AP/AR management',
+            'Financial dashboards',
+            'Audit trails'
+          ],
+          'footerText': 'Business solutions for tomorrow\'s challenges.'
+        }
+      };
+
+      function translatePage(language) {
+        document.querySelector('.logo').textContent = elementsToTranslate[language].logo;
+        document.querySelector('.nav-links a[href="#features"]').textContent = elementsToTranslate[language].solutions;
+        document.querySelector('.nav-links a[href="#pricing"]').textContent = elementsToTranslate[language].pricing;
+        document.querySelector('.nav-links a[href="#resources"]').textContent = elementsToTranslate[language].resources;
+        document.querySelector('.search-bar').placeholder = elementsToTranslate[language].searchPlaceholder;
+        document.querySelector('.btn-trial').textContent = elementsToTranslate[language].trialButton;
+        document.querySelector('.btn-login').textContent = elementsToTranslate[language].loginButton;
+        document.querySelector('.hero h1').textContent = elementsToTranslate[language].heroTitle;
+        document.querySelector('.hero p').textContent = elementsToTranslate[language].heroText;
+
+        const modules = document.querySelectorAll('.module');
+        modules[0].querySelector('h3').textContent = elementsToTranslate[language].module1Title;
+        modules[0].querySelector('.module-price').innerHTML = elementsToTranslate[language].module1Price + '<span>/mês</span>';
+        const module1Features = modules[0].querySelector('.module-features');
+        module1Features.innerHTML = '';
+        elementsToTranslate[language].module1Features.forEach(feature => {
+          module1Features.innerHTML += `<li><i class="fas fa-check"></i>${feature}</li>`;
+        });
+
+        modules[1].querySelector('h3').textContent = elementsToTranslate[language].module2Title;
+        modules[1].querySelector('.module-price').innerHTML = elementsToTranslate[language].module2Price + '<span>/mês</span>';
+        const module2Features = modules[1].querySelector('.module-features');
+        module2Features.innerHTML = '';
+        elementsToTranslate[language].module2Features.forEach(feature => {
+          module2Features.innerHTML += `<li><i class="fas fa-check"></i>${feature}</li>`;
+        });
+
+        modules[2].querySelector('h3').textContent = elementsToTranslate[language].module3Title;
+        modules[2].querySelector('.module-price').innerHTML = elementsToTranslate[language].module3Price + '<span>/mês</span>';
+        const module3Features = modules[2].querySelector('.module-features');
+        module3Features.innerHTML = '';
+        elementsToTranslate[language].module3Features.forEach(feature => {
+          module3Features.innerHTML += `<li><i class="fas fa-check"></i>${feature}</li>`;
+        });
+
+        modules[3].querySelector('h3').textContent = elementsToTranslate[language].module4Title;
+        modules[3].querySelector('.module-price').innerHTML = elementsToTranslate[language].module4Price + '<span>/mês</span>';
+        const module4Features = modules[3].querySelector('.module-features');
+        module4Features.innerHTML = '';
+        elementsToTranslate[language].module4Features.forEach(feature => {
+          module4Features.innerHTML += `<li><i class="fas fa-check"></i>${feature}</li>`;
+        });
+
+        document.querySelector('.footer-section p').textContent = elementsToTranslate[language].footerText;
+      }
+
+      languageToggle.addEventListener('change', function() {
+        const selectedLanguage = this.value;
+        translatePage(selectedLanguage);
+      });
+    });
+  </script>
 </head>
 <body>
   <header class="landing-header">
@@ -419,7 +566,7 @@
       <div class="nav-buttons">
         <div class="input-group">
           <i class="fas fa-search search-icon" tabindex="0"></i>
-          <input type="text" placeholder="Search..." class="search-bar" aria-label="Search">
+          <input type="text" placeholder="Buscar..." class="search-bar" aria-label="Search">
         </div>
         <a href="dashboard.html"><button class="btn btn-trial">Iniciar Teste Gratuito</button></a>
         <a href="login.html"><button class="btn btn-login">Entrar</button></a>
