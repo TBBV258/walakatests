@@ -224,7 +224,7 @@
     </div>
 
     <script>
-        function toggleForms() {
+        async function toggleForms() {
             const loginForm = document.getElementById('loginForm');
             const signupForm = document.getElementById('signupForm');
             
@@ -235,7 +235,7 @@
             signupForm.classList.toggle('active');
         }
 
-        function handleLogin(event) {
+        async function handleLogin(event) {
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
@@ -244,20 +244,26 @@
             button.innerHTML = '<span>Signing in...</span>';
             button.disabled = true;
             
-            setTimeout(() => {
-                console.log('Login attempt:', { email, password });
-                // Simulate successful login
-                const isSuccess = true; // Change this based on actual login logic
-                if (isSuccess) {
-                    window.location.href = 'dashboard.html'; // Redirect to dashboard
-                } else {
-                    button.innerHTML = 'Sign In';
-                    button.disabled = false;
-                }
-            }, 1500);
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                // Successful login
+                console.log('Logged in:', data);
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                console.error('Error logging in:', error.message);
+                alert(error.message);
+                button.innerHTML = 'Sign In';
+                button.disabled = false;
+            }
         }
 
-        function handleSignup(event) {
+        async function handleSignup(event) {
             event.preventDefault();
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
@@ -273,16 +279,52 @@
             button.innerHTML = '<span>Creating account...</span>';
             button.disabled = true;
             
-            setTimeout(() => {
-                console.log('Signup attempt:', { name, email, password });
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: name
+                        }
+                    }
+                });
+
+                if (error) throw error;
+
+                // Successful signup
+                console.log('Signed up:', data);
+                alert('Please check your email for verification link');
+                toggleForms(); // Switch back to login form
+            } catch (error) {
+                console.error('Error signing up:', error.message);
+                alert(error.message);
+            } finally {
                 button.innerHTML = 'Create Account';
                 button.disabled = false;
-            }, 1500);
+            }
         }
-    </script>
-<script src="auth.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>    
+        // Initialize Supabase client
+        const supabaseUrl = 'YOUR_SUPABASE_URL';
+        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Check if user is already logged in
+        async function checkUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Run on page load
+        checkUser();
+    </script>
+
+    <script src="auth.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>    
 
 </body>
 </html>
