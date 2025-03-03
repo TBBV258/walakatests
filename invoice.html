@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fatura</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     body {
       margin: 0;
@@ -61,16 +62,24 @@
       align-items: center;
     }
 
-    .menu-item img {
+    .menu-item i {
       width: 24px;
       height: 24px;
       margin-right: 10px;
       transition: transform 0.3s ease;
-      filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg);
+      color: white;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .menu-item:hover, .menu-item.active {
       background-color: #007ec7; /* Corporate blue */
+    }
+
+    .menu-item:hover i {
+      transform: scale(1.1); /* Slight zoom effect on hover */
     }
 
     .side-menu:hover .menu-item span {
@@ -350,7 +359,7 @@
                 font-size: 0.9em; /* Smaller font size for menu text */
             }
 
-            .menu-item img {
+            .menu-item i {
                 margin-right: 0; /* Remove right margin for icon */
                 margin-bottom: 5px; /* Margin below icon */
             }
@@ -418,38 +427,44 @@
     <ul class="menu">
       <li class="menu-item">
         <a href="dashboard.html">
-          <img src="img/dashboard.svg" alt="Dashboard">
+          <i class="fas fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="menu-item active">
         <a href="invoice.html">
-          <img src="img/invoice.svg" alt="Invoicing">
+          <i class="fas fa-file-invoice"></i>
           <span>Invoicing</span>
         </a>
       </li>
       <li class="menu-item">
         <a href="commercial.html">
-          <img src="img/commercial.svg" alt="Commercial">
+          <i class="fas fa-shopping-cart"></i>
           <span>Commercial</span>
         </a>
       </li>
       <li class="menu-item">
         <a href="accounting.html">
-          <img src="img/accounting.svg" alt="Accounting">
+          <i class="fas fa-calculator"></i>
           <span>Accounting</span>
         </a>
       </li>
       <li class="menu-item">
         <a href="financial.html">
-          <img src="img/financial.svg" alt="Financial">
+          <i class="fas fa-chart-line"></i>
           <span>Financial</span>
         </a>
       </li>
       <li class="menu-item">
         <a href="settings.html">
-          <img src="img/settings.svg" alt="Settings">
+          <i class="fas fa-cog"></i>
           <span>Settings</span>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="#" onclick="handleSignOut()">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Sign Out</span>
         </a>
       </li>
     </ul>
@@ -939,6 +954,15 @@
     });
 
     document.getElementById('generate-pdf').addEventListener('click', generatePDF);
+
+    async function handleSignOut() {
+      try {
+        await supabase.auth.signOut();
+        window.location.href = '/login.html';
+      } catch (error) {
+        console.error('Error signing out:', error);
+      }
+    }
   </script>
 <script>
 // Add any necessary JavaScript code here if needed
