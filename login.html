@@ -6,8 +6,8 @@
     <title>Login/Signup Page</title>
     <style>
         :root {
-            --primary-color: #2563eb; /* A deeper, more professional blue */
-            --secondary-color: #1d4ed8; 
+            --primary-color: #2563eb;
+            --secondary-color: #1d4ed8;
             --accent-color: #93c5fd;
             --text-color: #1e293b;
             --text-light: #64748b;
@@ -29,7 +29,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), #1e40af); /* Added a third color for more depth */
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), #1e40af);
             font-family: var(--font-family);
             padding: 1.5rem;
         }
@@ -48,7 +48,7 @@
         .profile-pic {
             width: 120px;
             height: 120px;
-            border-radius: 50%; /* Circular profile picture for a modern look */
+            border-radius: 50%;
             margin: -80px auto 25px;
             border: 4px solid var(--white);
             background-color: var(--border-color);
@@ -88,7 +88,7 @@
             width: 100%;
             padding: 0.875rem 1rem;
             border: 2px solid var(--border-color);
-            border-radius: 8px; /* Slightly rounded corners for inputs */
+            border-radius: 8px;
             font-size: 1rem;
             transition: all 0.2s ease;
             outline: none;
@@ -228,9 +228,6 @@
             const loginForm = document.getElementById('loginForm');
             const signupForm = document.getElementById('signupForm');
             
-            loginForm.style.transition = 'all 0.3s ease';
-            signupForm.style.transition = 'all 0.3s ease';
-            
             loginForm.classList.toggle('active');
             signupForm.classList.toggle('active');
         }
@@ -241,7 +238,7 @@
             const password = document.getElementById('loginPassword').value;
             
             const button = event.target.querySelector('button');
-            button.innerHTML = '<span>Signing in...</span>';
+            button.innerHTML = 'Signing in...';
             button.disabled = true;
             
             try {
@@ -252,7 +249,6 @@
 
                 if (error) throw error;
 
-                // Successful login
                 console.log('Logged in:', data);
                 window.location.href = 'dashboard.html';
             } catch (error) {
@@ -276,7 +272,7 @@
             }
 
             const button = event.target.querySelector('button');
-            button.innerHTML = '<span>Creating account...</span>';
+            button.innerHTML = 'Creating account...';
             button.disabled = true;
             
             try {
@@ -284,15 +280,12 @@
                     email: email,
                     password: password,
                     options: {
-                        data: {
-                            full_name: name
-                        }
+                        data: { full_name: name }
                     }
                 });
 
                 if (error) throw error;
 
-                // Successful signup
                 console.log('Signed up:', data);
                 alert('Please check your email for verification link');
                 toggleForms(); // Switch back to login form
@@ -305,12 +298,10 @@
             }
         }
 
-        // Initialize Supabase client
         const supabaseUrl = 'YOUR_SUPABASE_URL';
         const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
         const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // Check if user is already logged in
         async function checkUser() {
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
@@ -318,13 +309,11 @@
             }
         }
 
-        // Run on page load
         checkUser();
     </script>
 
     <script src="auth.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>    
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
 </body>
 </html>
