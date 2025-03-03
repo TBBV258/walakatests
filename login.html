@@ -227,9 +227,9 @@
 
     <script>
         // Initialize Supabase client first
-        const supabaseUrl = 'YOUR_SUPABASE_URL';
-        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
-        const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
+        const supabaseUrl = 'https://zkqjmozftqmyaycpmlxn.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InprcWptb3pmdHFteWF5Y3BtbHhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk5NjQzNDcsImV4cCI6MjA1NTU0MDM0N30.Zm5OF9jyoc6dbDQIGiOiEen-q0zfZjh_GzjWUmD8eqk';
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         async function toggleForms() {
             const loginForm = document.getElementById('loginForm');
@@ -249,7 +249,7 @@
             button.disabled = true;
             
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
@@ -283,7 +283,7 @@
             button.disabled = true;
             
             try {
-                const { data, error } = await supabase.auth.signUp({
+                const { data, error } = await supabaseClient.auth.signUp({
                     email: email,
                     password: password,
                     options: {
@@ -306,7 +306,7 @@
         }
 
         async function checkUser() {
-            const { data: { user } } = await supabase.auth.getUser();
+            const { data: { user } } = await supabaseClient.auth.getUser();
             if (user) {
                 window.location.href = 'dashboard.html';
             }
